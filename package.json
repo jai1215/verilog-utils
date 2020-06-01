@@ -2,6 +2,7 @@
 	"name": "verilog-utils",
 	"displayName": "verilog-utils",
 	"description": "verilog utilities",
+	"publisher": "dururu1215",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.45.0"
@@ -12,6 +13,10 @@
 	"activationEvents": [
 		"onCommand:verilog-utils.instation"
 	],
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/jai1215/verilog-utils.git"
+    },
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
