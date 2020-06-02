@@ -8,3 +8,11 @@ export function removeNewline(str: string) : string {
     str = str.replace(/\s+/g, ' ');
     return str;
 }
+
+export function strStretch(len: number, str: string) : string{
+    let l = str.length;
+    for(let i=0;i<(len-l);i++){
+        str = str+" ";
+    }
+    return str;    
+}
