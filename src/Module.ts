@@ -47,7 +47,7 @@ export class IO{
 
     removeReseved(str:string){
         for(let i=0;i<reserved.length;i++){
-            let re = new RegExp(reserved[i]);
+            let re = new RegExp("\\b"+reserved[i]+"\\b");
             let match:string[]|null = str.match(re);
             if (match !== null){
                 this.prop.push(reserved[i]);
@@ -68,6 +68,17 @@ export class IO{
         let name = tu.strStretch(len, this.name);
         
         str = "    ."+name+" ( "+name+" )";
+        if(comma === true){
+            str = str + ",";
+        }
+        str = str + "\n";
+        return str;
+    }
+    dumpParam(len:number, comma:Boolean = true){
+        let str:string;
+        let name = tu.strStretch(len, this.name);
+        
+        str = "    ."+name+" ( "+this.value+" )";
         if(comma === true){
             str = str + ",";
         }
@@ -137,15 +148,40 @@ export class Module {
     dumpInst(){
         let module = this.module;
         let ports = this.ports_array;
-        let str:string = module + " u_"+module+"(\n";
-        let l = ports.length;
+        let param = this.param_array;
+        let str:string;
         let max_len:number = 0;
+        //Dump parameter
+        console.log(this.param_array);
+        //get Max length
+        let lp = param.length;
+        for(let i=0;i<(lp-1);i++){
+            let pl = param[i].name.length;
+            if(max_len<pl){
+                max_len = pl;
+            }
+        }
+        let l = ports.length;
         for(let i=0;i<(l-1);i++){
             let pl = ports[i].name.length;
             if(max_len<pl){
                 max_len = pl;
             }
         }
+
+        if(lp === 0){
+            str = module + " u_"+module+"(\n";
+        }
+        else{
+            str = module + "#(\n";
+            for(let i=0;i<(lp-1);i++){
+                str += param[i].dumpParam(max_len);
+            }
+            str += param[lp-1].dumpParam(max_len, false);
+            str += ")u_"+module+"(\n";
+        }
+
+        
         for(let i=0;i<(l-1);i++){
             str += ports[i].dumpPort(max_len);
         }
