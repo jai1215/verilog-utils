@@ -6,9 +6,9 @@ verilog utility functions.
 
 There is only one feature now.
 - Make instatiation code
+- Command Name : "Verilog Utils - Instation"
 
 ## Examples
-- Command Name : "Verilog Utils - Instation"
 ![instantiate 1](images/instantiate.gif)
 
 ## TODO
